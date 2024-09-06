@@ -12,7 +12,7 @@ function verificarChute() {
 
     if (secret_number == guess) { //condição se acertar
         let word_attempts = guess_count > 1 ? 'attempts' : 'attempt'; //substituto para if else
-        varH1.innerHTML = (`Well done, you win in ${guess} ${word_attempts} S2!`);
+        varH1.innerHTML = (`Well done, you win in ${guess_count} ${word_attempts} S2!`);
         document.getElementById('reiniciar').removeAttribute('disabled');
     } else { //condição se errar - dicas de chute
         if(secret_number < guess){
