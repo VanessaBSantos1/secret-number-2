@@ -11,6 +11,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative; /* para permitir a sobreposição de texto e imagem*/
 }
 
 
@@ -38,6 +39,7 @@ body::before {
     background-image: url("img/Ruido.png");
     background-size: 100% 100%;
     position: relative;
+    z-index: 1; /* garante que o conteudo fique acima da imagem*/
 }
 
 
@@ -51,6 +53,7 @@ body::before {
 .container__informacoes {
     flex: 1;
     padding: 3rem;
+    z-index: 2; /* coloca o texto acima da imagem desfocada*/
 }
 
 .container__botao {
@@ -111,34 +114,100 @@ button:disabled {
 }
 
 @media screen and (max-width: 1250px) {
-
-    h1 {
-        font-size: 50px;
-    }
-
-    .container__botao {
-        font-size: 16px;
-    }
-
-
-    .texto__paragrafo {
-        font-size: 24px;
+    .container {
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
     }
 
     .container__imagem-pessoa {
-        display: none;
+        width: 60%;
+        filter: blur(8px); /* desfoque */
+        opacity: 0.3; /* opacidade */
     }
 
-    .container__conteudo {
-        display: block;
-        position: inherit;
+    h1 {
+        font-size: 40px;
     }
 
-    .container__informacoes {
-        padding: 1rem
+    .container__input {
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .container__botao {
+        font-size: 18px;
+        padding: 12px 20px;
+    }
+
+    .texto__paragrafo {
+        font-size: 22px;
+    }
+    .container__imagem-pessoa {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* centraliza a imagem */
+        width: 100%;
+        opacity: 0.3;
+        filter: blur(8px); /* desfoque*/
+        z-index: 1; /* A imagem ficará atrás do conteúdo */
     }
 }
 
 @media (min-width: 480px) and (max-width : 768px) {
+    .container {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 1rem;
+    }
 
+    .container__informacoes {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 32px;
+        padding-bottom: 2rem;
+    }
+
+    .container__imagem-pessoa {
+        width: 100%;
+        opacity: 0.2;
+        filter: blur(4px); /* desfoque*/
+    }
+
+    .container__input {
+        height: 50px;
+        font-size: 18px;
+        padding: 1rem;
+    }
+
+    .container__botao {
+        font-size: 16px;
+        padding: 10px 16px;
+    }
+
+    .texto__paragrafo {
+        font-size: 18px;
+    }
+
+    .container__botoes {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .container__imagem-pessoa {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* mantem a imagem do centro */
+        width: 100%;
+        opacity: 0.3;
+        filter: blur(8px); /* desfoque */
+        z-index: 1; /* A imagem ficará atrás do conteúdo */
+    }
 }
