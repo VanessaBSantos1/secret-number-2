@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=nG2oEu1N"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Inter:wght@400;700&display=swap"
@@ -24,8 +24,9 @@
                 </div>
                 <input  id="input" type="number" min="1" max="10" class="container__input" disabled>
                 <div class="chute container__botoes">
-                    <button onclick="verificarChute()" id="chutar" class="container__botao">Chutar</button disabled>
+                    <button onclick="verificarChute()" id="chutar" class="container__botao" disabled>Chutar</button>
                     <button onclick="novoJogo()" id="reiniciar" class="container__botao" disabled>Novo jogo</button>
+                    <button onclick="maisTentativas()" id="mais_tentativas" class="container__botao" disabled>Adicione mais tentativas</button>
                 </div>
             </div>
             <img src="./img/ia.png" alt="Uma pessoa olhando para a esquerda" class="container__imagem-pessoa" />

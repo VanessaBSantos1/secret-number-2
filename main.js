@@ -1,27 +1,22 @@
-//aumentar entativas
-//limitar tentativas
-//desabilitar e habilitar o input
-
 let limit = 10;
 let secret_number = getSecrect_Number();
 let guess_count = 0;
 let max_attempts = 5;
 
-document.addEventListener('keydown',
-    function(event) {
-        if (event.key === 'Enter') {
-            verificarChute()
-        }
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        verificarChute();
     }
-)
+});
+
 function getSecrect_Number() {
     return Math.floor((Math.random()*limit)+1);
 }
 
 function exibeTextoTag(tag, texto) {
+    responsiveVoice.speak(texto, "UK English Female", {pitch: 1});
     let varTag = document.querySelector(tag);
     varTag.innerHTML = texto;
-    responsiveVoice.speak(texto, "UK English Female", {pitch: 1});
 }
 
 function inicializaTexto() {
@@ -35,12 +30,14 @@ function limpraInput() {
 
 function verificarChute() {
     let guess = parseInt(document.querySelector('input').value); //garante que seja um numero
+
     if(isNaN(guess) || guess < 0 || guess > limit) {
         exibeTextoTag('p', `Plase type a valid number between 0 and ${limit}`);
         return;
     } 
 
     guess_count++;
+
     exibeTextoTag('h1', `Attempt ${guess_count}/${max_attempts}` );
     
     if (secret_number == guess) { //condição se acertar
@@ -61,6 +58,7 @@ function verificarChute() {
     if(guess_count >= max_attempts) {
         exibeTextoTag('h1', `Game Over! You've used all ${max_attempts} attempts.`);
         document.getElementById('reiniciar').removeAttribute('disabled');
+        document.getElementById('mais_tentativas').removeAttribute('disabled'); 
         desabilitaInput();
         desabilitaChute();
     }
@@ -83,14 +81,24 @@ function habilitaChute() {
     document.querySelector('chutar').removeAttribute('disabled');
 }
 
+function maisTentativas() {
+    max_attempts += 3;
+    exibeTextoTag('p', `You have received 3 extra attempts. You now have ${max_attempts - guess_count} attempts left.`);
+    habilitaChute();
+    habilitaInput();
+    document.getElementById('mais_tentativas').setAttribute('disabled', 'true');
+}
+
 function novoJogo() {
     inicializaTexto();
     secret_number = getSecrect_Number();
     limpraInput();
     guess_count = 0; //zera o contador
+    max_attempts = 5;
     habilitaInput();
     habilitaChute();
     document.getElementById('reiniciar').setAttribute('disabled', 'true') //desabilita o novo jogo ate o procimo acerto
+    document.getElementById('mais_tentativas').setAttribute('disabled', 'true');
 }
 
 inicializaTexto();
