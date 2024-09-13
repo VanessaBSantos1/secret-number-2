@@ -4,7 +4,7 @@
 
 let limit = 10;
 let secret_number = getSecrect_Number();
-let guess_count = 1;
+let guess_count = 0;
 let max_attempts = 5;
 
 document.addEventListener('keydown',
@@ -40,8 +40,9 @@ function verificarChute() {
         return;
     } 
 
-    exibeTextoTag('h1', `Attempt ${guess_count}/${max_attempts}` );
     guess_count++;
+    exibeTextoTag('h1', `Attempt ${guess_count}/${max_attempts}` );
+    
     if (secret_number == guess) { //condição se acertar
         let word_attempts = guess_count > 1 ? 'attempts' : 'attempt'; //substituto para if else
         exibeTextoTag('h1', `Well done, you win in ${guess_count} ${word_attempts} S2!`);
