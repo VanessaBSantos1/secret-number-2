@@ -74,11 +74,11 @@ function habilitaInput() {
 }
 
 function desabilitaChute() {
-    document.querySelector('chutar').setAttribute('disabled', 'true');
+    document.querySelector('#chutar').setAttribute('disabled', 'true');
 }
 
 function habilitaChute() {
-    document.querySelector('chutar').removeAttribute('disabled');
+    document.querySelector('#chutar').removeAttribute('disabled');
 }
 
 function maisTentativas() {

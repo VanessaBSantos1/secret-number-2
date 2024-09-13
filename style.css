@@ -113,10 +113,11 @@ button:disabled {
     background-color: gray;
 }
 
-@media screen and (max-width: 1024px) {
+@media(max-width: 1024px) {
     .container {
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         width: 90%;
         height: auto;
     }
@@ -135,19 +136,21 @@ button:disabled {
     h1 {
         font-size: 40px;
     }
+    
 
     .container__input {
         height: 60px;
         font-size: 20px;
+        width: 40%;
     }
 
     .container__botao {
         font-size: 18px;
-        padding: 12px 20px;
+        padding: 10px 10px;
     }
 
     .texto__paragrafo {
-        font-size: 22px;
+        font-size: 18px;
     }
     .container__imagem-pessoa {
         position: absolute;
@@ -161,7 +164,7 @@ button:disabled {
     }
 }
 
-@media (min-width: 480px) and (max-width : 768px) {
+@media (min-width: 768px) and (max-width: 1024px) {
     .container {
         width: 100%;
         height: auto;
@@ -174,6 +177,8 @@ button:disabled {
         padding: 1rem;
         text-align: center;
     }
+
+
 
     h1 {
         font-size: 32px;
