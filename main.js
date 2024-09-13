@@ -1,46 +1,97 @@
-varH1 = document.querySelector('h1');
-varH1.innerHTML = 'Secret Number';
+//aumentar entativas
+//limitar tentativas
+//desabilitar e habilitar o input
 
 let limit = 10;
-varP= document.querySelector('p');
-varP.innerHTML = `Type a number between 1 and ${limit}`;
+let secret_number = getSecrect_Number();
+let guess_count = 1;
+let max_attempts = 5;
 
+document.addEventListener('keydown',
+    function(event) {
+        if (event.key === 'Enter') {
+            verificarChute()
+        }
+    }
+)
+function getSecrect_Number() {
+    return Math.floor((Math.random()*limit)+1);
+}
 
-let secret_number = Math.floor((Math.random()*limit)+1);
-let guess_count = 0;
+function exibeTextoTag(tag, texto) {
+    let varTag = document.querySelector(tag);
+    varTag.innerHTML = texto;
+    responsiveVoice.speak(texto, "UK English Female", {pitch: 1});
+}
+
+function inicializaTexto() {
+    exibeTextoTag('h1', 'Secret Number');
+    exibeTextoTag('p', `Type a number between 1 and ${limit}`);
+}
+
+function limpraInput() {
+    document.querySelector('input').value = '';
+}
 
 function verificarChute() {
     let guess = parseInt(document.querySelector('input').value); //garante que seja um numero
-    guess_count++;
-
     if(isNaN(guess) || guess < 0 || guess > limit) {
-        varP.innerHTML = (`Plase type a valid number between 0 and ${limit}`);
-    } else {
-        if (secret_number == guess) { //condição se acertar
-            let word_attempts = guess_count > 1 ? 'attempts' : 'attempt'; //substituto para if else
-            varH1.innerHTML = (`Well done, you win in ${guess_count} ${word_attempts} S2!`);
-            varP.innerHTML = ('Congratulations!!');
-            document.getElementById('reiniciar').removeAttribute('disabled');
-        } else { //condição se errar - dicas de chute
-            if(secret_number < guess){
-                varP.innerHTML = (`Tray again :( The secret number is less than your guees ${guess} ;)`);
-            } else {
-                varP.innerHTML = (` Tray again :( The secret number is greater than your guees ${guess};)`);
-            }
+        exibeTextoTag('p', `Plase type a valid number between 0 and ${limit}`);
+        return;
+    } 
+
+    exibeTextoTag('h1', `Attempt ${guess_count}/${max_attempts}` );
+    guess_count++;
+    if (secret_number == guess) { //condição se acertar
+        let word_attempts = guess_count > 1 ? 'attempts' : 'attempt'; //substituto para if else
+        exibeTextoTag('h1', `Well done, you win in ${guess_count} ${word_attempts} S2!`);
+        exibeTextoTag('p', 'Congratulations!!');
+        document.getElementById('reiniciar').removeAttribute('disabled');
+        desabilitaChute();
+        desabilitaInput();
+    } else { //condição se errar - dicas de chute
+        if(secret_number < guess){
+            exibeTextoTag('p', `Tray again :( The secret number is less than your guees ${guess} ;)`);
+        } else {
+            exibeTextoTag('p', ` Tray again :( The secret number is greater than your guees ${guess};)`);
         }
     }
+
+    if(guess_count >= max_attempts) {
+        exibeTextoTag('h1', `Game Over! You've used all ${max_attempts} attempts.`);
+        document.getElementById('reiniciar').removeAttribute('disabled');
+        desabilitaInput();
+        desabilitaChute();
+    }
+    limpraInput();
+}
+
+function desabilitaInput() {
+    document.querySelector('input').setAttribute('disabled', 'true');
+}
+
+function habilitaInput() {
+    document.querySelector('input').removeAttribute('disabled');
+}
+
+function desabilitaChute() {
+    document.querySelector('chutar').setAttribute('disabled', 'true');
+}
+
+function habilitaChute() {
+    document.querySelector('chutar').removeAttribute('disabled');
 }
 
 function novoJogo() {
-    varH1.innerHTML = 'Secret Number'; //reinicia a tag h1
-    varP.innerHTML = `Type a number between 1 and ${limit}`; //reinicia a tag p
-
+    inicializaTexto();
+    secret_number = getSecrect_Number();
+    limpraInput();
     guess_count = 0; //zera o contador
-
-    secret_number = Math.floor((Math.random()*limit) + 1); //gera um novo numero secreto
-
-    document.querySelector('input').value = ''; //limpa o input
-
+    habilitaInput();
+    habilitaChute();
     document.getElementById('reiniciar').setAttribute('disabled', 'true') //desabilita o novo jogo ate o procimo acerto
-
 }
+
+inicializaTexto();
+habilitaInput();
+habilitaChute();
